@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install -y curl
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the requirements.txt file to the working directory
-COPY requirements.txt .
+# Copy the requirement file to the working directory
+COPY requirements/prod.txt requirements.txt
 
 # Install the app dependencies
 RUN pip install -r requirements.txt
