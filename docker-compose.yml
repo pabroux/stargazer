@@ -1,15 +1,20 @@
 services:
   # FastAPI service
   fastapi:
+    # Image to use
     build:
       context: .
       dockerfile: Dockerfile
+    # Bind mount the database
     volumes:
       - ${PWD}/database/:/app/database/
+    # Map port 8000 to 8000
     ports:
       - "8000:8000"
+    # Load .env file
     env_file:
       - .env
+    # Configure healthcheck for the service 
     healthcheck:
       test: curl -sf http://localhost:8000/health > /dev/null || exit 1
       interval: 30s
@@ -19,11 +24,15 @@ services:
 
   # Nginx service
   nginx:
+    # Image to use
     image: nginx
+    # Bind mount the nginx configuration
     volumes:
       - ${PWD}/config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    # Map port 80 to 80
     ports:
       - "80:80"
+    # Depend on FastAPI health status
     depends_on:
       fastapi:
         condition: service_healthy
