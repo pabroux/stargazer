@@ -1,6 +1,6 @@
 """Router for the Auth app.
 
-This module provides a FastAPI router for all Auth-related endpoints.
+This module provides a FastAPI router for Auth-related endpoints.
 """
 
 from datetime import timedelta

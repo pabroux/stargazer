@@ -1,6 +1,6 @@
 """Router for Status app.
 
-This module provides a FastAPI router for status-related endpoints.
+This module provides a FastAPI router for Status-related endpoints.
 """
 
 from fastapi import APIRouter

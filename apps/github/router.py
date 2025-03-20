@@ -1,6 +1,6 @@
 """Router for the GitHub app.
 
-This module provides a FastAPI router for all GitHub-API-related endpoints.
+This module provides a FastAPI router for GitHub-API-related endpoints.
 """
 
 from collections import defaultdict
