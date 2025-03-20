@@ -7,8 +7,7 @@ from fastapi import status
 from httpx import AsyncClient
 
 import settings
-
-from .exceptions import GitHubException
+from apps.github.exceptions import GitHubException
 
 
 def get_github_headers() -> dict[str, str]:

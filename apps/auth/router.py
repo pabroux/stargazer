@@ -10,9 +10,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestFormStrict
 
 import settings
-
-from .models import Token
-from .utils import authenticate_user, create_access_token
+from apps.auth.models import Token
+from apps.auth.utils import authenticate_user, create_access_token
 
 router = APIRouter()
 

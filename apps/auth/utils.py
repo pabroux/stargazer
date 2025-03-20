@@ -15,15 +15,14 @@ from jwt.exceptions import InvalidTokenError
 from sqlmodel import Session, create_engine, select
 
 import settings
-
-from .exceptions import DatabaseNotFound
-from .models import TokenData, User
+from apps.auth.exceptions import DatabaseNotFound
+from apps.auth.models import TokenData, User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 database_url = settings.DATABASE_URL
 connect_args = {
-    "check_same_thread": False  # Make FastAPI use the same database in different threads.
+    "check_same_thread": False  # Use the same database in different threads
 }
 
 engine = create_engine(database_url, connect_args=connect_args)

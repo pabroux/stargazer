@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.requests import Request
 
-from .utils import get_formatted_content
+from apps.shared.utils import get_formatted_content
 
 
 async def http_exception_handler(_: Request, exc: Any) -> JSONResponse:

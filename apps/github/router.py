@@ -12,8 +12,7 @@ from fastapi import APIRouter, Depends
 import settings
 from apps.auth.models import User
 from apps.auth.utils import get_current_active_user
-
-from .utils import fetch_stargazers, fetch_starred_repos
+from apps.github.utils import fetch_stargazers, fetch_starred_repos
 
 router = APIRouter()
 
