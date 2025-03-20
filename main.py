@@ -7,6 +7,7 @@ from fastapi import FastAPI
 
 import apps.github.exceptions as exceptions_github
 import apps.shared.exceptions as exceptions_shared
+import settings
 from apps.auth.router import router as router_auth
 from apps.auth.utils import check_database_exist
 from apps.github.router import router as router_github
@@ -16,7 +17,10 @@ from apps.status.router import router as router_status
 check_database_exist()
 
 # Create FastAPI app
-app = FastAPI()
+app = FastAPI(
+    docs_url="/docs" if settings.DOC_ACTIVATE else None,
+    redoc_url="/redoc" if settings.DOC_ACTIVATE else None,
+)
 
 # Setup routers to the app
 app.include_router(router_auth)

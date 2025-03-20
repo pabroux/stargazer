@@ -37,3 +37,6 @@ DATABASE_URL = getenv("DATABASE_URL", "sqlite:///database/user.db")
 GITHUB_TOKEN = getenv("GITHUB_TOKEN")
 GITHUB_MAX_PAGE_REPO = max(1, int(getenv("GITHUB_MAX_PAGE_REPO", "1")))
 GITHUB_MAX_PAGE_STARGAZER = max(1, int(getenv("GITHUB_MAX_PAGE_STARGAZERS", "1")))
+
+# Documentation
+DOC_ACTIVATE = getenv("DOC_ACTIVATE", "1") == "1"

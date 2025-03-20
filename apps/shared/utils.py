@@ -8,6 +8,8 @@ from typing import Any
 
 from fastapi.encoders import jsonable_encoder
 
+import settings
+
 
 def get_formatted_content(
     message: str,
@@ -30,9 +32,10 @@ def get_formatted_content(
     """
     response: dict[str, int | str | Sequence[Any] | dict[str, Any]] = {
         "message": message,
-        "documentation_url_path": "/docs",
         "status": status,
     }
+    if settings.DOC_ACTIVATE:
+        response["documentation_url_path"] = "/docs"
     if detail is not None:
         response["detail"] = detail
     return jsonable_encoder(response)
