@@ -4,25 +4,25 @@ repos:
       - id: black
         name: Black (Python formatter)
         description: This hook checks Python files with Black.
-        entry: bash -c 'for arg in "$@"; do nix shell nixpkgs#black --command black -q $arg; done;' --
+        entry: black -q
         language: system
         types_or: [python, pyi]
       - id: isort
         name: isort (Python import sorter)
         description: This hook checks Python files with isort.
-        entry: bash -c 'for arg in "$@"; do nix shell nixpkgs#isort --command isort --profile black $arg; done;' --
+        entry: isort --profile black
         language: system
         types_or: [python, pyi]
       - id: mypy
         name: mypy (Python type checker)
         description: This hook checks Python files with mypy in strict mode.
-        entry: bash -c 'for arg in "$@"; do nix shell nixpkgs#mypy --command mypy --strict --disable-error-code import-untyped $arg; done;' --
+        entry: mypy --strict
         language: system
         types_or: [python, pyi]
       - id: pylint
         name: pylint (Python linter)
         description: This hook checks Python files with pylint.
-        entry: bash -c 'for arg in "$@"; do nix shell nixpkgs#pylint --command pylint $arg; done;' --
+        entry: pylint
         language: system
         types_or: [python, pyi]
       - id: gitleaks
