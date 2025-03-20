@@ -26,7 +26,7 @@ JWT_ALGORITHM = (
     if ((jwt_algo := getenv("JWT_ALGORITHM")) in ["HS384", "HS512"])
     else "HS256"
 )
-JWT_SECRET_KEY = getenv("JWT_SECRET_KEY")
+JWT_SECRET_KEY = getenv("JWT_SECRET_KEY", "my-dev-secret-key")
 
 # Database settings
 # Here we use a simple database (SQLite) for development environment.
