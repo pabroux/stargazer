@@ -19,7 +19,7 @@ Attributes:
 
 from os import getenv
 
-# Authentification-related/security settings
+# Authentification settings
 ACCESS_TOKEN_EXPIRE_MINUTES = max(1, float(getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")))
 JWT_ALGORITHM = (
     jwt_algo
