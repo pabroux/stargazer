@@ -1,0 +1,30 @@
+services:
+  # FastAPI service
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ${PWD}/database/:/app/database/
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    healthcheck:
+      test: curl -sf http://localhost:8000/health > /dev/null || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  # Nginx service
+  nginx:
+    image: nginx
+    volumes:
+      - ${PWD}/config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      fastapi:
+        condition: service_healthy
+
