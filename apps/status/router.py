@@ -3,15 +3,13 @@
 This module provides a FastAPI router for status-related endpoints.
 """
 
-from typing import Dict
-
 from fastapi import APIRouter
 
 router = APIRouter()
 
 
 @router.get("/health")
-def health_check() -> Dict[str, str]:
+def health_check() -> dict[str, str]:
     """Gets the health status of the FastAPI app.
 
     Returns a response with a single key "status" and value "healthy".

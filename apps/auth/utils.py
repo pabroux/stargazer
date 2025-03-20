@@ -5,7 +5,7 @@ This module provides utility functions for authenticating users.
 
 from datetime import datetime, timedelta, timezone
 from os import path
-from typing import Annotated, Dict, Literal, Optional, Union
+from typing import Annotated, Literal
 
 import bcrypt
 import jwt
@@ -29,7 +29,7 @@ connect_args = {
 engine = create_engine(database_url, connect_args=connect_args)
 
 
-def authenticate_user(username: str, password: str) -> Union[User, Literal[False]]:
+def authenticate_user(username: str, password: str) -> User | Literal[False]:
     """Authenticates a user.
 
     Authenticates a user using the provided username and password. If the
@@ -66,7 +66,7 @@ def check_database_exist() -> None:
 
 
 def create_access_token(
-    data: Dict[str, Union[str, datetime]], expires_delta: Optional[timedelta] = None
+    data: dict[str, str | datetime], expires_delta: timedelta | None = None
 ) -> str:
     """Creates a JSON Web Token (JWT) for authentication.
 
@@ -179,7 +179,7 @@ def get_password_hash(password: str) -> str:
     return hashed_password_enc.decode()
 
 
-def get_user_by_username(username: str) -> Union[User, None]:
+def get_user_by_username(username: str) -> User | None:
     """Retrieves a user by the username.
 
     Queries the database to retrieve a user object based on the

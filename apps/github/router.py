@@ -4,7 +4,7 @@ This module provides a FastAPI router for all GitHub-API-related endpoints.
 """
 
 from collections import defaultdict
-from typing import Annotated, Any, Dict, List
+from typing import Annotated, Any
 
 import httpx
 from fastapi import APIRouter, Depends
@@ -23,7 +23,7 @@ async def get_starneighbours(
     user: str,
     repo: str,
     _: Annotated[User, Depends(get_current_active_user)],
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """Gets star neighbours for a given GitHub repository.
 
     Retrieves a list of repositories that are starred by at least one stargazer of the

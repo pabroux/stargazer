@@ -3,8 +3,6 @@
 This module provides utility functions for making requests with GitHub API.
 """
 
-from typing import Dict
-
 from fastapi import status
 from httpx import AsyncClient
 
@@ -13,7 +11,7 @@ import settings
 from .exceptions import GitHubException
 
 
-def get_github_headers() -> Dict[str, str]:
+def get_github_headers() -> dict[str, str]:
     """Gets the headers to be sent with each GitHub API request.
 
     Returns a dictionary of headers to be sent with each GitHub API request. If a

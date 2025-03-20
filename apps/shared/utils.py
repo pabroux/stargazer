@@ -3,7 +3,8 @@
 This module contains helper functions that can be used by any app.
 """
 
-from typing import Any, Dict, Optional, Sequence, Union
+from collections.abc import Sequence
+from typing import Any
 
 from fastapi.encoders import jsonable_encoder
 
@@ -11,7 +12,7 @@ from fastapi.encoders import jsonable_encoder
 def get_formatted_content(
     message: str,
     status: int,
-    detail: Optional[Union[Sequence[Any], Dict[str, Any]]] = None,
+    detail: Sequence[Any] | dict[str, Any] | None = None,
 ) -> Any:
     """Formats a response content.
 
@@ -27,7 +28,7 @@ def get_formatted_content(
         Any: A JSON-encoded response dictionary containing the message,
         documentation URL path, status, and optional details.
     """
-    response: Dict[str, Union[int, str, Sequence[Any], Dict[str, Any]]] = {
+    response: dict[str, int | str | Sequence[Any] | dict[str, Any]] = {
         "message": message,
         "documentation_url_path": "/docs",
         "status": status,
