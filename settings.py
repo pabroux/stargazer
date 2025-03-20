@@ -14,7 +14,7 @@ Attributes:
         requested repository (defaults to 1).
     JWT_ALGORITHM (str): The algorithm used to sign the JWT tokens. Possible values: "HS256"
         (default), "HS384" and "HS512".
-    SECRET_KEY (str): The secret key used by the app.
+    JWT_SECRET_KEY (str): The secret key used by the app for signing JWT.
 """
 
 from os import getenv
@@ -26,7 +26,7 @@ JWT_ALGORITHM = (
     if ((jwt_algo := getenv("JWT_ALGORITHM")) in ["HS384", "HS512"])
     else "HS256"
 )
-SECRET_KEY = getenv("SECRET_KEY")
+JWT_SECRET_KEY = getenv("JWT_SECRET_KEY")
 
 # Database settings
 # Here we use a simple database (SQLite) for development environment.
