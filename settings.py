@@ -7,14 +7,15 @@ Attributes:
     ACCESS_TOKEN_EXPIRE_MINUTES (float): The number of minutes the access token to the app remains
         valid (defaults to 30).
     DATABASE_URL (str): The URL of the database used by the app.
+    DOC_ACTIVATE (bool): Whether to deliver the documentation (defaults to True).
     GITHUB_TOKEN (str): The GitHub API token.
     GITHUB_MAX_PAGE_REPO (int): The maximum number of pages to fetch for the requested repository
         (defaults to 1).
     GITHUB_MAX_PAGE_STARGAZER (int): The maximum number of pages to fetch for a stargazer of the
         requested repository (defaults to 1).
-    JWT_ALGORITHM (str): The algorithm used to sign the JWT tokens. Possible values: "HS256"
+    JWT_ALGORITHM (str): The algorithm used to sign JSON Web Tokens (JWT). Possible values: "HS256"
         (default), "HS384" and "HS512".
-    JWT_SECRET_KEY (str): The secret key used by the app for signing JWT.
+    JWT_SECRET_KEY (str): The secret key used to sign JSON Web Tokens (JWT).
 """
 
 from os import getenv
@@ -29,8 +30,8 @@ JWT_ALGORITHM = (
 JWT_SECRET_KEY = getenv("JWT_SECRET_KEY", "my-dev-secret-key")
 
 # Database settings
-# Here we use a simple database (SQLite) for development environment.
-# In production, we should use a better database (e.g. PostgreSQL).
+# Here we use a simple database (SQLite) for the development environment
+# In production, we should use a better database (e.g. PostgreSQL)
 DATABASE_URL = getenv("DATABASE_URL", "sqlite:///database/user.db")
 
 # GitHub-API-related settings
