@@ -61,8 +61,8 @@ async def validation_exception_handler(_: Request, exc: Any) -> JSONResponse:
 def include_app(app: FastAPI) -> None:
     """Includes the exception handlers related to the app in the given FastAPI app.
 
-    Associates the exception handlers 'http_exception_handler' and
-    'validation_exception_handler' with the FastAPI app.
+    Associates the exception handlers `http_exception_handler` and
+    `validation_exception_handler` with the FastAPI app.
 
     Args:
         app (FastAPI): The app to include the exception handlers in.

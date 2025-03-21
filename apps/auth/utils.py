@@ -124,7 +124,7 @@ async def get_current_active_user(
 ) -> User:
     """Retrieves the current active user.
 
-    Checks if the current user is active by verifying the 'disabled' status.
+    Checks if the current user is active by verifying the `disabled` status.
 
     Args:
         current_user (User): The user object retrieved from the authentication
