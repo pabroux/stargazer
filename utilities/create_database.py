@@ -36,7 +36,6 @@ def import_module(module_name: str, file_path: str) -> ModuleType:
 
 
 parent_dir = path.abspath(path.join(path.dirname(__file__), ".."))
-print(parent_dir)
 
 # Import dynamically 'User' model (ORM) and 'get_password_hash' function
 _ = import_module("stargazer", path.join(parent_dir, "stargazer/__init__.py"))
