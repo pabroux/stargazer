@@ -3,6 +3,8 @@
 This module contains tests for helper functions that can be used by any app.
 """
 
+from fastapi import status
+
 from apps.shared.utils import get_formatted_content
 from stargazer import settings
 
@@ -17,13 +19,12 @@ def test_get_formatted_content() -> None:
     """
 
     message = "Test message"
-    status = 200
     detail = ["Test detail"]
     formatted_content = get_formatted_content(
-        message=message, status=status, detail=detail
+        message=message, status=status.HTTP_200_OK, detail=detail
     )
     assert formatted_content["message"] == message
-    assert formatted_content["status"] == status
+    assert formatted_content["status"] == status.HTTP_200_OK
     assert formatted_content["detail"] == detail
     if settings.DOC_ACTIVATE:
         assert "documentation_url_path" in formatted_content
