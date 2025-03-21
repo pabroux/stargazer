@@ -7,7 +7,7 @@ Attributes:
     ACCESS_TOKEN_EXPIRE_MINUTES (float): The number of minutes the access token to the app remains
         valid (defaults to 30).
     DATABASE_URL (str): The URL of the database used by the app.
-    DOC_ACTIVATE (bool): Whether to deliver the documentation (defaults to True).
+    DOC_ACTIVATE (bool): Whether to make the documentation available (defaults to True).
     GITHUB_TOKEN (str): The GitHub API token.
     GITHUB_MAX_PAGE_REPO (int): The maximum number of pages to fetch for the requested repository
         (defaults to 1).
