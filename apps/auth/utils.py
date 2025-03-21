@@ -4,7 +4,6 @@ This module provides utility functions for authenticating users.
 """
 
 from datetime import datetime, timedelta, timezone
-from os import path
 from typing import Annotated, Literal
 
 import bcrypt
@@ -12,9 +11,9 @@ import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import InvalidTokenError
+from sqlalchemy.exc import OperationalError
 from sqlmodel import Session, create_engine, select
 
-from apps.auth.exceptions import DatabaseNotFound
 from apps.auth.models import TokenData, User
 from stargazer import settings
 
@@ -47,21 +46,6 @@ def authenticate_user(username: str, password: str) -> User | Literal[False]:
     if not user or not verify_password(password, user.hashed_password):
         return False
     return user
-
-
-def check_database_exist() -> None:
-    """Checks if the specified database exists.
-
-    Checks if the database specified in settings exists. Currently, this only checks
-    for local SQLite databases.
-
-    Raises:
-        DatabaseNotFound: If the database cannot be connected to.
-    """
-    if "sqlite:///" in database_url and not path.exists(
-        database_url.lstrip("sqlite:///")
-    ):
-        raise DatabaseNotFound(f"Unable to connect to the database '{database_url}'.")
 
 
 def create_access_token(
@@ -100,9 +84,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> Use
     """Retrieves the current user based on the provided bearer token.
 
     Validates the provided JWT token, extracts the username from the payload, and
-    retrieves the corresponding user object from the database. If the token is invalid,
-    the user is not found, or the credentials are incorrect, an HTTP 401 Unauthorized
-    exception is raised.
+    retrieves the corresponding user object from the database.
 
     Args:
         token: The bearer token to validate and extract the user information from.
@@ -112,7 +94,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> Use
 
     Raises:
         HTTPException: If the token is invalid, the user is not found, or the credentials
-        are incorrect.
+        are incorrect, a 401 Unauthorized exception is raised.
     """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -143,7 +125,6 @@ async def get_current_active_user(
     """Retrieves the current active user.
 
     Checks if the current user is active by verifying the 'disabled' status.
-    If the user is inactive, raises an HTTP 400 Bad Request exception.
 
     Args:
         current_user (User): The user object retrieved from the authentication
@@ -153,11 +134,12 @@ async def get_current_active_user(
         User: The active user object.
 
     Raises:
-        HTTPException: If the user is inactive.
+        HTTPException: If the user is inactive, a 403 Forbidden exception
+        is raised.
     """
     if current_user.disabled:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
+            status_code=status.HTTP_403_FORBIDDEN,
             detail="Inactive user",
         )
     return current_user
@@ -193,11 +175,21 @@ def get_user_by_username(username: str) -> User | None:
 
     Returns:
         Union[User, None]: The user object if found, otherwise None.
+
+    Raises:
+        HTTPException: If unable to connect to the database, a 503 Service
+        Unavailable exception is raised.
     """
-    with Session(engine) as session:
-        statement = select(User).where(User.username == username)
-        user = session.exec(statement).first()
-        return user
+    try:
+        with Session(engine) as session:
+            statement = select(User).where(User.username == username)
+            user = session.exec(statement).first()
+            return user
+    except OperationalError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Database not available",
+        ) from exc
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
