@@ -18,7 +18,7 @@ def get_github_headers() -> dict[str, str]:
     a Bearer token.
 
     Returns:
-        Dict[str, str]: A dictionary of headers to be sent with each GitHub API request.
+        dict[str, str]: A dictionary of headers to be sent with each GitHub API request.
     """
     headers = {
         "Accept": "application/json",
