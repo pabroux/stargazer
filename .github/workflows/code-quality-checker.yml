@@ -33,6 +33,6 @@ jobs:
       - name: Check import order of Python files
         run: isort -c --profile black .
       - name: Check type hints of Python files
-        run: mypy --strict
+        run: mypy --strict .
       - name: Check lints of Python files.
-        run: pylint
+        run: pylint .
