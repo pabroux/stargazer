@@ -1,0 +1,26 @@
+name: Code quality checker
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+permissions:
+  contents: read
+jobs:
+  code-quality-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - name: Check up-to-date syntax of Python files
+        run: nix shell nixpkgs#pyupgrade --command pyupgrade --py312-plus **/*.py
+      - name: Check format of Python files
+        run: nix shell nixpkgs#black --command black --check .
+      - name: Check import order of Python files
+        run: nix shell nixpkgs#isort --command isort -c --profile black .
+      - name: Check type hints of Python files
+        run: nix shell nixpkgs#mypy --command mypy --strict
+      - name: Check lints of Python files.
+        run: nix shell nixpkgs#pylint --command pylint
