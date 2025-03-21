@@ -39,7 +39,7 @@ def authenticate_user(username: str, password: str) -> User | Literal[False]:
         password (str): The password to verify against the user's hashed password.
 
     Returns:
-        Union[User, bool]: The user object if the user is authenticated, False
+        User | bool: The user object if the user is authenticated, False
         otherwise.
     """
     user = get_user_by_username(username)
@@ -57,9 +57,9 @@ def create_access_token(
     an expiration time. The expiration time defaults to 15 minutes if not specified.
 
     Args:
-        data (Dict[str, Union[str, datetime]]): The payload data to include
+        data (dict[str, str | datetime]): The payload data to include
         in the token, typically containing user identification information.
-        expires_delta (Optional[timedelta]): A time delta indicating the
+        expires_delta (timedelta | None): A time delta indicating the
         duration for which the token is valid. If not provided, the token
         expires in 15 minutes.
 
@@ -174,7 +174,7 @@ def get_user_by_username(username: str) -> User | None:
         username (str): The username to search for.
 
     Returns:
-        Union[User, None]: The user object if found, otherwise None.
+        User | None: The user object if found, otherwise None.
 
     Raises:
         HTTPException: If unable to connect to the database, a 503 Service

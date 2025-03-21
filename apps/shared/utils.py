@@ -24,7 +24,7 @@ def get_formatted_content(
     Args:
         message (str): The message to be included in the response.
         status (int): The HTTP status code associated with the response.
-        detail (Optional[Sequence[Any]]): Extra details for the response.
+        detail (Sequence[Any] | dict[str, Any] | None): Extra details for the response.
 
     Returns:
         Any: A JSON-encoded response dictionary containing the message,

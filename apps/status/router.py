@@ -16,6 +16,6 @@ def health_check() -> dict[str, str]:
     It is used to check the health of the FastAPI app.
 
     Returns:
-        Dict[str, str]: A dict with a single key "status" and value "healthy".
+        dict[str, str]: A dict with a single key "status" and value "healthy".
     """
     return {"status": "healthy"}
