@@ -9,8 +9,7 @@ from fastapi import status
 from fastapi.testclient import TestClient
 from pytest_mock import MockerFixture
 
-from apps.auth.models import User
-from apps.auth.utils import get_password_hash
+from apps.auth.tests.utils import mock_get_user_by_username
 from apps.shared.utils import get_formatted_content
 from main import app
 
@@ -21,23 +20,6 @@ fake_data = {
     "username": "pabroux",
     "password": "password",
 }
-
-
-def mock_get_user_by_username(mocker: MockerFixture) -> None:
-    """Mocks the `get_user_by_username` function.
-
-    This mock is used in tests to avoid having to create a user in the database.
-
-    Args:
-        mocker (MockerFixture): The mocker fixture used to mock the function.
-    """
-    get_user_by_username = mocker.patch("apps.auth.utils.get_user_by_username")
-    get_user_by_username.return_value = User(
-        username="pabroux",
-        email="pabroux@stargazer.com",
-        hashed_password=f"{get_password_hash("password")}",
-        disabled=False,
-    )
 
 
 def test_login_for_access_token(mocker: MockerFixture) -> None:

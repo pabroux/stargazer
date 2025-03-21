@@ -1,0 +1,26 @@
+"""Test utilities for the Auth app.
+
+This module provides test utility functions for the Auth app.
+"""
+
+from pytest_mock import MockerFixture
+
+from apps.auth.models import User
+from apps.auth.utils import get_password_hash
+
+
+def mock_get_user_by_username(mocker: MockerFixture) -> None:
+    """Mocks the `get_user_by_username` function.
+
+    This mock is used in tests to avoid having to create a user in the database.
+
+    Args:
+        mocker (MockerFixture): The mocker fixture used to mock the function.
+    """
+    get_user_by_username = mocker.patch("apps.auth.utils.get_user_by_username")
+    get_user_by_username.return_value = User(
+        username="pabroux",
+        email="pabroux@stargazer.com",
+        hashed_password=f"{get_password_hash("password")}",
+        disabled=False,
+    )
