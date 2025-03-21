@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 
 # Copy the app code to the working directory
 COPY main.py .
-COPY settings.py .
+COPY /stargazer ./stargazer
 COPY /apps ./apps
 
 # Expose the port on which the app will run
