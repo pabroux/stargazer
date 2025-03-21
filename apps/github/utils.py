@@ -20,7 +20,10 @@ def get_github_headers() -> dict[str, str]:
     Returns:
         Dict[str, str]: A dictionary of headers to be sent with each GitHub API request.
     """
-    headers = {"Accept": "application/json", "X-GitHub-Api-Version": "2022-11-28"}
+    headers = {
+        "Accept": "application/json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
     if settings.GITHUB_TOKEN:
         headers["Authorization"] = f"Bearer {settings.GITHUB_TOKEN}"
     return headers
