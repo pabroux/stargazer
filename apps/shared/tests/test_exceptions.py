@@ -11,10 +11,7 @@ from fastapi.testclient import TestClient
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.requests import Request
 
-from apps.shared.exceptions import (
-    http_exception_handler,
-    validation_exception_handler,
-)
+from apps.shared.exceptions import http_exception_handler, validation_exception_handler
 from main import app
 
 client = TestClient(app)
