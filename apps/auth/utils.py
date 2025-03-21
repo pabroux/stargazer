@@ -14,9 +14,9 @@ from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import InvalidTokenError
 from sqlmodel import Session, create_engine, select
 
-import settings
 from apps.auth.exceptions import DatabaseNotFound
 from apps.auth.models import TokenData, User
+from stargazer import settings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 

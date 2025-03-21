@@ -6,8 +6,8 @@ This module provides utility functions for making requests with GitHub API.
 from fastapi import status
 from httpx import AsyncClient
 
-import settings
 from apps.github.exceptions import GitHubException
+from stargazer import settings
 
 
 def get_github_headers() -> dict[str, str]:

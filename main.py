@@ -7,11 +7,11 @@ from fastapi import FastAPI
 
 import apps.github.exceptions as exceptions_github
 import apps.shared.exceptions as exceptions_shared
-import settings
 from apps.auth.router import router as router_auth
 from apps.auth.utils import check_database_exist
 from apps.github.router import router as router_github
 from apps.status.router import router as router_status
+from stargazer import settings
 
 # Check if the database specified in settings exists
 check_database_exist()

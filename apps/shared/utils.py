@@ -8,7 +8,7 @@ from typing import Any
 
 from fastapi.encoders import jsonable_encoder
 
-import settings
+from stargazer import settings
 
 
 def get_formatted_content(
