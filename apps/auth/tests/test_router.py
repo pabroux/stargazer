@@ -26,7 +26,7 @@ def test_login_for_access_token(mocker: MockerFixture) -> None:
     """Tests the /login_for_access_token endpoint.
 
     Tests the response is a 200 OK with a JSON body containing
-    {"access_token": <str>, "token_type": "bearer"}.
+    `{"access_token": <str>, "token_type": "bearer"}`.
 
     Args:
         mocker (MockerFixture): The mocker fixture used to mock functions.
@@ -51,7 +51,7 @@ def test_login_for_access_token_invalid_credentials(mocker: MockerFixture) -> No
     """Tests the /login_for_access_token endpoint with invalid credentials.
 
     Tests the response is a 401 Unauthorized with a JSON body containing
-    at least {"message": "Incorrect username or password", "status": 401}.
+    at least `{"message": "Incorrect username or password", "status": 401}`.
 
     Args:
         mocker (MockerFixture): The mocker fixture used to mock functions.
@@ -78,7 +78,7 @@ def test_login_for_access_token_invalid_grant_type(mocker: MockerFixture) -> Non
     """Tests the /login_for_access_token endpoint with invalid grant_type.
 
     Tests the response is a 422 Unprocessable Entity with a JSON body containing
-    at least {"message": "Invalid input", "status": 422, "detail": <str>}.
+    at least `{"message": "Invalid input", "status": 422, "detail": <str>}`.
 
     Args:
         mocker (MockerFixture): The mocker fixture used to mock functions.
@@ -109,7 +109,7 @@ def test_login_for_access_token_invalid_input(mocker: MockerFixture) -> None:
     """Tests the /login_for_access_token endpoint with invalid inputs.
 
     Tests the response is a 422 Unprocessable Entity with a JSON body containing
-    at least {"message": "Invalid input", "status": 422, "detail": <str>}.
+    at least `{"message": "Invalid input", "status": 422, "detail": <str>}`.
 
     Args:
         mocker (MockerFixture): The mocker fixture used to mock functions.

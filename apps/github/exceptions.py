@@ -26,7 +26,7 @@ async def github_exception_handler(_: Request, exc: Any) -> JSONResponse:
     """Handles GitHubException and returns a formatted response.
 
     For any GitHubException, the app returns a JSON response with a formatted
-    content and a code 502 (Bad Gateway).
+    content and a 502 Bad Gateway code.
 
     Args:
         _ (Request): The request that triggered the exception.
