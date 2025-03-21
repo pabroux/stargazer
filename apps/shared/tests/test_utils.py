@@ -1,6 +1,6 @@
-"""Tests for the utility functions of the app.
+"""Tests for the utilities of the app.
 
-This module contains tests for helper functions that can be used by any app.
+This module contains tests for utility functions that can be used by any app.
 """
 
 from fastapi import status

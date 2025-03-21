@@ -1,6 +1,6 @@
 """Utilities for the app.
 
-This module contains helper functions that can be used by any app.
+This module contains utility functions that can be used by any app.
 """
 
 from collections.abc import Sequence
