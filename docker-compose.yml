@@ -11,7 +11,7 @@ services:
     # Map port 8000 to 8000
     ports:
       - "8000:8000"
-    # Load .env file
+    # Load .env file if exists
     env_file:
       - path: .env
         required: false
