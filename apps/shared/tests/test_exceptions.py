@@ -21,15 +21,14 @@ async def test_http_exception_handler() -> None:
     Tests that the response object is an instance of `JSONResponse`.
     """
     exc = StarletteHTTPException(status_code=status.HTTP_200_OK, detail="detail")
+    content = get_formatted_content(
+        str(exc.detail),
+        exc.status_code,
+    )
     response = await http_exception_handler(Request({"type": "http"}), exc)
     assert isinstance(response, JSONResponse)
     assert response.status_code == status.HTTP_200_OK
-    assert response.body == response.render(
-        get_formatted_content(
-            str(exc.detail),
-            exc.status_code,
-        ),
-    )
+    assert response.body == response.render(content)
 
 
 @pytest.mark.anyio
@@ -40,13 +39,12 @@ async def test_validation_exception_handler() -> None:
     a 422 Unprocessable Entity status code and the correct content.
     """
     exc = RequestValidationError(errors="errors")
+    content = get_formatted_content(
+        "Invalid input",
+        status.HTTP_422_UNPROCESSABLE_ENTITY,
+        exc.errors(),
+    )
     response = await validation_exception_handler(Request({"type": "http"}), exc)
     assert isinstance(response, JSONResponse)
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
-    assert response.body == response.render(
-        get_formatted_content(
-            "Invalid input",
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
-            exc.errors(),
-        ),
-    )
+    assert response.body == response.render(content)
