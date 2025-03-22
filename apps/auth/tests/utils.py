@@ -10,7 +10,7 @@ from apps.auth.utils import get_password_hash
 
 
 def mock_get_user_by_username(
-    mocker: MockerFixture, similuate_match: bool = True
+    mocker: MockerFixture, simulate_match: bool = True
 ) -> User | None:
     """Mocks the `get_user_by_username` function.
 
@@ -31,9 +31,8 @@ def mock_get_user_by_username(
             hashed_password=f"{get_password_hash("password")}",
             disabled=False,
         )
-        if similuate_match
+        if simulate_match
         else None
     )
-    get_user_by_username = mocker.patch("apps.auth.utils.get_user_by_username")
-    get_user_by_username.return_value = user
+    mocker.patch("apps.auth.utils.get_user_by_username", return_value=user)
     return user

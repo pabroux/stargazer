@@ -33,7 +33,7 @@ def test_login_for_access_token(mocker: MockerFixture) -> None:
     """
 
     # Mock the `get_user_by_username` function
-    mock_get_user_by_username(mocker)
+    mock_get_user_by_username(mocker, simulate_match=True)
 
     response = client.post(
         "/token",
@@ -58,7 +58,7 @@ def test_login_for_access_token_invalid_credentials(mocker: MockerFixture) -> No
     """
 
     # Mock the `get_user_by_username` function
-    mock_get_user_by_username(mocker)
+    mock_get_user_by_username(mocker, simulate_match=True)
 
     fake_data_invalid_password = deepcopy(fake_data)
     fake_data_invalid_password["password"] = "invalid_password"
@@ -85,7 +85,7 @@ def test_login_for_access_token_invalid_grant_type(mocker: MockerFixture) -> Non
     """
 
     # Mock the `get_user_by_username` function
-    mock_get_user_by_username(mocker)
+    mock_get_user_by_username(mocker, simulate_match=True)
 
     fake_data_invalid_grant = deepcopy(fake_data)
     fake_data_invalid_grant["grant_type"] = "invalid_grant"
@@ -116,7 +116,7 @@ def test_login_for_access_token_invalid_input(mocker: MockerFixture) -> None:
     """
 
     # Mock the `get_user_by_username` function
-    mock_get_user_by_username(mocker)
+    mock_get_user_by_username(mocker, simulate_match=True)
 
     for key in fake_data:
         fake_data_no_key = deepcopy(fake_data)

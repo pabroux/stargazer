@@ -34,7 +34,7 @@ def test_authenticate_user(mocker: MockerFixture) -> None:
     """
 
     # Mock the `get_user_by_username` function
-    user = mock_get_user_by_username(mocker)
+    user = mock_get_user_by_username(mocker, simulate_match=True)
 
     assert authenticate_user("username", "password") == user
     assert not authenticate_user("username", "wrong_password")
@@ -65,7 +65,7 @@ async def test_get_current_user(mocker: MockerFixture) -> None:
     `HTTPException` when given an invalid token, an empty token, or when the
     user is not found in the database.
     """
-    user = mock_get_user_by_username(mocker)
+    user = mock_get_user_by_username(mocker, simulate_match=True)
     token_valid = create_access_token(data={"sub": "username"})
     user_retrieved = await get_current_user(token_valid)
     assert user == user_retrieved
@@ -75,7 +75,7 @@ async def test_get_current_user(mocker: MockerFixture) -> None:
         token_invalid = create_access_token(data={})
         await get_current_user(token_invalid)
     with pytest.raises(HTTPException):
-        mock_get_user_by_username(mocker, similuate_match=False)
+        mock_get_user_by_username(mocker, simulate_match=False)
         await get_current_user(token_valid)
 
 
