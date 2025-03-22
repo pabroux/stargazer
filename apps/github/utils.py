@@ -1,6 +1,6 @@
 """Utilities for the GitHub app.
 
-This module provides utility functions for making requests with GitHub API.
+This module provides utility functions for querying GitHub API.
 """
 
 from fastapi import status
