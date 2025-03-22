@@ -30,6 +30,13 @@ repos:
         entry: pylint
         language: system
         types_or: [python, pyi]
+      - id: bandit
+        name: Bandit (Python vulnerability scanner)
+        description: This hook checks Python files with bandit.
+        entry: bandit --skip B106
+        language: system
+        types_or: [python, pyi]
+        exclude: ^(apps/auth/tests/|apps/github/tests/|apps/shared/tests/|apps/status/tests/)
       - id: gitleaks
         name: Gitleaks (secret scanner)
         description: This hook checks the existence of secrets.
