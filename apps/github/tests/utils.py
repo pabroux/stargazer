@@ -3,11 +3,15 @@
 This module provides test utility functions for the GitHub app.
 """
 
+import json
 from collections.abc import Callable
 from typing import Any
+from unittest.mock import AsyncMock
 
+from fastapi import status
 from fastapi.testclient import TestClient
 from httpx._models import Response
+from pytest_mock import MockerFixture
 
 from apps.auth.models import User
 from apps.auth.utils import get_current_active_user
@@ -53,6 +57,29 @@ def client_get_without_oauth(client: TestClient, url: str) -> Response:
         Response: The response from the server.
     """
     return client.get(url)
+
+
+def mock_async_client_get(
+    mocker: MockerFixture,
+    simulate_success: bool = True,
+    content: list[Any] | None = None,
+) -> Response:
+    """Mocks the `get` method of the `httpx.AsyncClient` object.
+
+    Args:
+        mocker (MockerFixture): The pytest-mock fixture to use for mocking.
+        simulate_success (bool, optional): Whether to simulate a successful response
+        (defaults to True).
+        content (list[Any], optional): The content of the response (defaults to []).
+
+    Returns:
+        Response: The mocked response object.
+    """
+    status_code = status.HTTP_200_OK if simulate_success else status.HTTP_404_NOT_FOUND
+    content_json = json.dumps(content if content else ["test"]).encode("utf-8")
+    resp = Response(status_code=status_code, content=content_json)
+    mocker.patch("httpx.AsyncClient.get", AsyncMock(return_value=resp))
+    return resp
 
 
 async def override_get_current_active_user() -> User:
