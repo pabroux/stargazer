@@ -14,6 +14,7 @@ def mock_get_user_by_username(
 ) -> User | None:
     """Mocks the `get_user_by_username` function.
 
+    Mocks the `get_user_by_username` function in the `apps.auth.utils` context.
     This mock is used in tests to avoid having to create a user in the database.
 
     Args:

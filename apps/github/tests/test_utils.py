@@ -43,7 +43,9 @@ async def test_fetch_stargazers(mocker: MockerFixture) -> None:
     list of stargazers and the presence of a next page.
     """
 
+    # Mock `get` instance method of AsyncClient
     mock_async_client_get(mocker, simulate_success=False)
+
     client = AsyncClient()
     with pytest.raises(GitHubException):
         await fetch_stargazers(client=client, user="user", repo="repo", page=1)
@@ -67,7 +69,10 @@ async def test_fetch_starred_repos(mocker: MockerFixture) -> None:
     output when the request is successful, correctly retrieving the list of
     starred repositories and the presence of a next page.
     """
+
+    # Mock `get` instance method of AsyncClient
     mock_async_client_get(mocker, simulate_success=False)
+
     client = AsyncClient()
     with pytest.raises(GitHubException):
         await fetch_starred_repos(client=client, stargazer="stargazer", page=1)
