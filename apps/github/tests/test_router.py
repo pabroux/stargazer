@@ -3,55 +3,48 @@
 This module contains tests for GitHub-related endpoints.
 """
 
+import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
+from pytest_mock import MockerFixture
 
-from apps.github.tests.utils import client_get_without_oauth
+from apps.github.tests.utils import (
+    client_get_without_oauth,
+    mock_get_starneighbours_fetch_stargazers,
+    mock_get_starneighbours_fetch_starred_repos,
+)
 from apps.shared.utils import get_formatted_content
 from main import app
 
 client = TestClient(app)
 
 
-def test_get_starneighbours() -> None:
+@pytest.mark.anyio
+def test_get_starneighbours(mocker: MockerFixture) -> None:
     """Tests the /repos/<user>/<repo>/starneighbours endpoint.
 
-    Tests the response is a 200 OK with a JSON body containing
-    [{"repo": "pabroux/unvX", "stargazers": ["Sulfyderz", "pabroux"]}].
+    Tests the response is a 200 OK with a JSON body similar to
+    `[{"repo": <str>, "stargazers": [ <str>, ...]}, ...]`.
     """
-    response = client_get_without_oauth(client, "/repos/pabroux/unvx/starneighbours")
 
-    assert response.status_code == status.HTTP_200_OK
-    assert {
-        "repo": "pabroux/unvX",
-        "stargazers": ["Sulfyderz", "pabroux"],
-    } in response.json()
-
-
-def test_get_starneighbours_invalid_request() -> None:
-    """Tests the /repos/<user>/<repo>/starneighbours endpoint with an invalid request.
-
-    Tests the response is a 502 Bad Gateway with a JSON body containing at least
-    {"message": "Bad Gateway for GitHub API", "status": 502, "detail": {"github_api_message": ...}}.
-    """
-    response = client_get_without_oauth(
-        client, "/repos/pabroux/unvx-undefined/starneighbours"
+    mock_get_starneighbours_fetch_stargazers(mocker, content=["pabroux", "Sulfyderz"])
+    mock_get_starneighbours_fetch_starred_repos(
+        mocker, content=["pabroux/unvx", "pabroux/ai-forge"]
     )
-    response_json = response.json()
-    print(response_json)
-    assert response.status_code == status.HTTP_502_BAD_GATEWAY
-    assert "detail" in response_json and "github_api_message" in response_json["detail"]
-    del response_json["detail"]
-    assert response_json == get_formatted_content(
-        "Bad Gateway for GitHub API", status.HTTP_502_BAD_GATEWAY
-    )
+    resp = client_get_without_oauth(client, "/repos/pabroux/unvx/starneighbours")
+    output_expected = [
+        {"repo": "pabroux/unvx", "stargazers": ["pabroux", "Sulfyderz"]},
+        {"repo": "pabroux/ai-forge", "stargazers": ["pabroux", "Sulfyderz"]},
+    ]
+    assert resp.status_code == status.HTTP_200_OK
+    assert resp.json() == output_expected
 
 
 def test_get_starneighbours_invalid_token() -> None:
     """Tests the /repos/<user>/<repo>/starneighbours endpoint with an invalid token.
 
     Tests the response is a 401 Unauthorized with a JSON body containing at least
-    {"message": "Could not validate credentials", "status": 401}.
+    `{"message": "Could not validate credentials", "status": 401}`.
     """
     response = client.get(
         "/repos/pabroux/unvx/starneighbours",

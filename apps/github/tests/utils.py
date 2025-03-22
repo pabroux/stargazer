@@ -66,11 +66,15 @@ def mock_async_client_get(
 ) -> Response:
     """Mocks the `get` method of the `httpx.AsyncClient` object.
 
+    Mocks the `get` method of the `httpx.AsyncClient` object in the
+    `apps.auth.utils` context. This mock is used in tests to avoid
+    having to make real HTTP requests to the GitHub API.
+
     Args:
         mocker (MockerFixture): The pytest-mock fixture to use for mocking.
-        simulate_success (bool, optional): Whether to simulate a successful response
-        (defaults to True).
-        content (list[Any], optional): The content of the response (defaults to []).
+        simulate_success (bool, optional): Whether to simulate a successful
+        response (defaults to True).
+        content (list[Any], optional): The content of the response.
 
     Returns:
         Response: The mocked response object.
@@ -78,8 +82,46 @@ def mock_async_client_get(
     status_code = status.HTTP_200_OK if simulate_success else status.HTTP_404_NOT_FOUND
     content_json = json.dumps(content if content else ["test"]).encode("utf-8")
     resp = Response(status_code=status_code, content=content_json)
-    mocker.patch("httpx.AsyncClient.get", AsyncMock(return_value=resp))
+    mocker.patch("apps.github.utils.AsyncClient.get", AsyncMock(return_value=resp))
     return resp
+
+
+def mock_get_starneighbours_fetch_stargazers(
+    mocker: MockerFixture, content: list[Any] | None = None
+) -> None:
+    """Mocks the `fetch_stargazers` function used in `get_starneighbours`.
+
+    Mocks the `fetch_stargazers` function used in `get_starneighbours` in the
+    `apps.auth.utils` context. This mock is used in tests to avoid
+    making real HTTP requests to the GitHub API.
+
+    Args:
+        mocker (MockerFixture): The pytest-mock fixture to use for mocking.
+        content (list[Any], optional): The content of the response.
+    """
+    mocker.patch(
+        "apps.github.router.fetch_stargazers",
+        AsyncMock(return_value=((content if content else [], False))),
+    )
+
+
+def mock_get_starneighbours_fetch_starred_repos(
+    mocker: MockerFixture, content: list[Any] | None = None
+) -> None:
+    """Mocks the `fetch_starred_repos` function used in `get_starneighbours`.
+
+    Mocks the `fetch_starred_repos` function used in `get_starneighbours` in the
+    `apps.auth.utils` context. This mock is used in tests to avoid
+    making real HTTP requests to the GitHub API.
+
+    Args:
+        mocker (MockerFixture): The pytest-mock fixture to use for mocking.
+        content (list[Any], optional): The content of the response.
+    """
+    mocker.patch(
+        "apps.github.router.fetch_starred_repos",
+        AsyncMock(return_value=((content if content else [], False))),
+    )
 
 
 async def override_get_current_active_user() -> User:
