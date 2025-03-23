@@ -14,7 +14,7 @@ def test_get_formatted_content() -> None:
 
     Ensures that the function correctly formats the response content
     with given message, status, and detail. Also checks for the presence
-    of the documentation URL path based on the `DOC_ACTIVATE` environment
+    of the documentation URL path based on the `DOCS_ACTIVATE` environment
     variable.
     """
 
@@ -26,7 +26,7 @@ def test_get_formatted_content() -> None:
     assert formatted_content["message"] == message
     assert formatted_content["status"] == status.HTTP_200_OK
     assert formatted_content["detail"] == detail
-    if settings.DOC_ACTIVATE:
+    if settings.DOCS_ACTIVATE:
         assert "documentation_url_path" in formatted_content
         assert formatted_content["documentation_url_path"] == "/docs"
     else:

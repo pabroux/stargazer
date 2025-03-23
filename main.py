@@ -14,8 +14,8 @@ from stargazer import settings
 
 # Create FastAPI app
 app = FastAPI(
-    docs_url="/docs" if settings.DOC_ACTIVATE else None,
-    redoc_url="/redoc" if settings.DOC_ACTIVATE else None,
+    docs_url="/docs" if settings.DOCS_ACTIVATE else None,
+    redoc_url="/redoc" if settings.DOCS_ACTIVATE else None,
 )
 
 # Setup routers to the app

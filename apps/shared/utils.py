@@ -34,7 +34,7 @@ def get_formatted_content(
         "message": message,
         "status": status,
     }
-    if settings.DOC_ACTIVATE:
+    if settings.DOCS_ACTIVATE:
         response["documentation_url_path"] = "/docs"
     if detail is not None:
         response["detail"] = detail

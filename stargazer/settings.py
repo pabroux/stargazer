@@ -7,7 +7,7 @@ Attributes:
     ACCESS_TOKEN_EXPIRE_MINUTES (float): The number of minutes the access token to the app remains
         valid (defaults to 30).
     DATABASE_URL (str): The URL of the database used by the app.
-    DOC_ACTIVATE (bool): Whether to make the documentation available (defaults to True).
+    DOCS_ACTIVATE (bool): Whether to make the documentation available (defaults to True).
     GITHUB_TOKEN (str): The GitHub API token.
     GITHUB_MAX_PAGE_REPO (int): The maximum number of pages to fetch for the requested repository
         (defaults to 1).
@@ -34,10 +34,10 @@ JWT_SECRET_KEY = getenv("JWT_SECRET_KEY", "my-dev-secret-key")
 # In production, we should use a better database (e.g. PostgreSQL)
 DATABASE_URL = getenv("DATABASE_URL", "sqlite:///database/user.db")
 
+# Documentation settings
+DOCS_ACTIVATE = getenv("DOCS_ACTIVATE", "1") == "1"
+
 # GitHub-API-related settings
 GITHUB_TOKEN = getenv("GITHUB_TOKEN")
 GITHUB_MAX_PAGE_REPO = max(1, int(getenv("GITHUB_MAX_PAGE_REPO", "1")))
 GITHUB_MAX_PAGE_STARGAZER = max(1, int(getenv("GITHUB_MAX_PAGE_STARGAZERS", "1")))
-
-# Documentation
-DOC_ACTIVATE = getenv("DOC_ACTIVATE", "1") == "1"
