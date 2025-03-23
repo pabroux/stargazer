@@ -36,7 +36,7 @@ Stargazer is developed in Python and uses the [FastAPI](https://fastapi.tiangolo
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Structure](#structure)
-- [Resources](#resources)
+- [Improvements](#improvements)
 
 ## Requirements
 
@@ -55,9 +55,7 @@ python utilities/create_database.py
 ```
 
 > [!NOTE]
-> This will create a database at `database/utils.db` with three fake users: `jd`, `sileht` and `aurele`.
-> `aurele` is the only disabled user (i.e. he can't retrieve ressources even if he is authenticated).
-> You will be prompted to set passwords for each user.
+> This will create a database at `database/utils.db` with three fake users with the following usernames: `jd`, `sileht` and `aurele`. `aurele` is the only disabled user (i.e. he can't retrieve ressources even if he is authenticated). You will be prompted to set passwords for each user.
 
 Run the app with Docker Compose:
 
@@ -71,7 +69,7 @@ docker compose up
 > - A FastAPI container, listening on port 8000;
 > - A Nginx container, listening on port 80.
 >
-> The Nginx server is used to proxy the requests to the FastAPI container. It caches responses that was generated with the help of GitHub API.
+> The Nginx server is used to proxy the requests to the FastAPI container, the Stargazer app. It caches responses that was generated with the help of GitHub API.
 
 > [!TIP]
 > Don't want to use Docker?
@@ -81,15 +79,15 @@ docker compose up
 >
 > In the following, use port `8000` instead of `80`.
 
-Request a bearer token at `/token` endpoint for user `<user>` with password `<password>`:
+Request a bearer token at `/token` endpoint for a user with a username `<username>` and a password `<password>`:
 
 ```shell
 curl -X 'POST' \
   'http://127.0.0.1:80/token' \
-  -d 'grant_type=password&username=<user>&password=<password>'
+  -d 'grant_type=password&username=<username>&password=<password>'
 ```
 
-Request the list of neighbour repositories of a GitHub repository at `/repos/<user>/<repo>/starneighbours` endpoint by passing the bearer token in the `Authorization` header:
+Request the list of neighbour repositories of a GitHub repository at `/repos/<owner>/<repo>/starneighbours` endpoint by passing the bearer token in the `Authorization` header:
 
 ```shell
 curl -X 'GET' \
@@ -99,15 +97,89 @@ curl -X 'GET' \
 ```
 
 > [!TIP]
-> Don't want to ?
+> Want to try on a repository with few stargazers? Test on `/repos/pabroux/unvX/starneighbours`. [unvX](https://github.com/pabroux/unvX) is a repository starred by [pabroux](http://github.com/pabroux) and [Sulfyderz](https://github.com/Sulfyderz).
 
 ## Configuration
 
-You can configure the app in the `.env` file.
+You can configure the app by creating a `.env` file and setting the following environment variables:
+
+| Variable                      | Description                                                                                               |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | The number of minutes the access token to the app remains valid (defaults to 30)                          |
+| `DATABASE_URL`                | The URL of the database used by the app                                                                   |
+| `DOCS_ACTIVATE`               | Whether to make the documentation available (defaults to True)                                            |
+| `GITHUB_TOKEN`                | A GitHub API access token                                                                                 |
+| `GITHUB_MAX_PAGE_REPO`        | The maximum number of pages to fetch for the requested repository (defaults to 1)                         |
+| `GITHUB_MAX_PAGE_STARGAZER`   | The maximum number of pages to fetch for a stargazer of the requested repository (defaults to 1)          |
+| `JWT_ALGORITHM`               | The algorithm used to sign JSON Web Tokens (JWT). Possible values: "HS256" (default), "HS384" and "HS512" |
+| `JWT_SECRET_KEY`              | The secret key used to sign JSON Web Tokens (JWT)                                                         |
+
+> [!NOTE]
+> If you run the app without Docker, create these environment variables in your terminal instead (e.g. `export JWT_ALGORITHM="HS256"`).
+
+## Structure
+
+The app is structured as follows:
+
+```text
+.
+├── .github                               # Directory containing GitHub Actions workflows
+│   └── workflows
+│       ├── auto-assigner.yml                 # GitHub Actions workflow for auto-assigning issues
+│       ├── ci-tester.yml                     # GitHub Actions workflow for running tests
+│       ├── code-quality-checker.yml          # GitHub Actions workflow for running code quality checks
+│       └── code-security-checker.yml         # GitHub Actions workflow for running code security checks
+├── apps                                  # Directory containing the apps used by the Stargazer app
+│   ├── __init__.py
+│   ├── auth                                  # Directory containing the auth app
+│   │   ├── tests                                 # Directory containing the tests for the auth app
+│   │   ├── __init__.py
+│   │   ├── models.py                             # File containing the models for the auth app
+│   │   ├── router.py                             # File containing the router for the auth app
+│   │   └── utils.py                              # File containing the utils for the auth app
+│   ├── github                                # Directory containing the github app
+│   │   ├── tests                                 # Directory containing the tests for the github app
+│   │   ├── __init__.py
+│   │   ├── exceptions.py                         # File containing the exceptions for the github app
+│   │   ├── router.py                             # File containing the router for the github app
+│   │   └── utils.py                              # File containing the utils for the github app
+│   ├── shared                                # Directory containing the shared app
+│   │   ├── tests                                 # Directory containing the tests for the status app
+│   │   ├── __init__.py
+│   │   ├── exceptions.py                         # File containing the exceptions for the shared app
+│   │   └── utils.py                              # File containing the utils for the github app
+│   └─ status                                 # Directory containing the status app
+│       ├── tests                                 # Directory containing the tests for the status app
+│       ├── __init__.py
+│       └── routers.py                            # File containing the router for the status app
+├── config                                # Directory containing the configuration files non specific to the app
+│   └── nginx.conf                            # File containing the Nginx configuration
+├── stargazer                             # Directory containing high-level settings for the Stargazer app
+│   ├── __init__.py
+│   └── settings.py                           # File containing the settings for the app
+├── utilities                             # Directory containing utility scripts
+│   └── create_database.py                    # Script to create a fake database
+├── requirements                          # Directory containing the requirements files
+│   ├── dev.txt                               # File containing the development requirements
+│   └── prod.txt                              # File containing the production requirements
+├── CHANGELOG.md                          # File containing the changelog
+├── docker-compose.yml                    # File containing the Docker Compose configuration
+├── Dockerfile                            # File containing the Dockerfile for the app
+├── LICENSE                               # File containing the MIT license
+├── main.py                               # Entry point of the Stargazer app
+└── README.md                             # File containing the README
+```
+
+> [!NOTE]
+> The structure is much inspired by [Django](https://www.djangoproject.com)'s one.
 
 ## Improvements
 
-- [ ] OpenAI docs
-- Add CRUD endpoints for the users.
-- Handle database better (SQLModel still creates the dabase even it it fails to connect).
-  [] Create another protected Git branch for production.
+- [ ] CRUD endpoints for managing users;
+- [ ] Protected Git branch dedicated to production;
+- [ ] CI/CD pipeline;
+- [ ] Real database (e.g. PostgreSQL);
+- [ ] Cached database (e.g. Redis);
+- [ ] Schema examples of each endpoint for the generated [OpenAPI](https://www.openapis.org) documentation;
+- [ ] Containers on separate machines, load balancing and auto scaling (Kubernetes);
+- [ ] Better database handling when not existing (currently, SQLModel with SQLite raises an error if the database does not exist, but still creates an empty database file). SQLAlchemy-Utils offers a solution but that package has some known vulnerabilities.
