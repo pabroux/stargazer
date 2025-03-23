@@ -28,10 +28,10 @@ jobs:
           pip install -r requirements/dev.txt
       - name: Check up-to-date syntax of Python files (pyupgrade)
         run: pyupgrade --py312-plus **/*.py
-      - name: Check format of Python files (Black)
-        run: black --check .
-      - name: Check import order of Python files (isort)
-        run: isort -c --profile black .
+      - name: Check format of Python files (ruff)
+        run: ruff format --check
+      - name: Check import order & lints of Python files (ruff)
+        run: ruff check --select I
       - name: Check type hints of Python files (mypy)
         run: mypy --strict .
       - name: Check lints of Python files (pylint)
