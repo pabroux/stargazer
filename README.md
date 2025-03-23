@@ -125,49 +125,49 @@ The app is structured as follows:
 .
 ├── .github                               # Directory containing GitHub Actions workflows
 │   └── workflows
-│       ├── auto-assigner.yml                 # GitHub Actions workflow for auto-assigning issues
-│       ├── ci-tester.yml                     # GitHub Actions workflow for running tests
-│       ├── code-quality-checker.yml          # GitHub Actions workflow for running code quality checks
-│       └── code-security-checker.yml         # GitHub Actions workflow for running code security checks
+│       ├── auto-assigner.yml                 # Issue auto-assigner
+│       ├── ci-tester.yml                     # CI tester
+│       ├── code-quality-checker.yml          # Code quality checker
+│       └── code-security-checker.yml         # Code security checker
 ├── apps                                  # Directory containing the apps used by the Stargazer app
 │   ├── __init__.py
 │   ├── auth                                  # Directory containing the auth app
 │   │   ├── tests                                 # Directory containing the tests for the auth app
 │   │   ├── __init__.py
-│   │   ├── models.py                             # File containing the models for the auth app
-│   │   ├── router.py                             # File containing the router for the auth app
-│   │   └── utils.py                              # File containing the utils for the auth app
+│   │   ├── models.py                             # Models for the auth app
+│   │   ├── router.py                             # Router for the auth app
+│   │   └── utils.py                              # Utils for the auth app
 │   ├── github                                # Directory containing the github app
 │   │   ├── tests                                 # Directory containing the tests for the github app
 │   │   ├── __init__.py
-│   │   ├── exceptions.py                         # File containing the exceptions for the github app
-│   │   ├── router.py                             # File containing the router for the github app
-│   │   └── utils.py                              # File containing the utils for the github app
+│   │   ├── exceptions.py                         # Exceptions for the github app
+│   │   ├── router.py                             # Router for the github app
+│   │   └── utils.py                              # Utils for the github app
 │   ├── shared                                # Directory containing the shared app
 │   │   ├── tests                                 # Directory containing the tests for the status app
 │   │   ├── __init__.py
-│   │   ├── exceptions.py                         # File containing the exceptions for the shared app
-│   │   └── utils.py                              # File containing the utils for the github app
+│   │   ├── exceptions.py                         # Exceptions for the shared app
+│   │   └── utils.py                              # Utils for the github app
 │   └─ status                                 # Directory containing the status app
 │       ├── tests                                 # Directory containing the tests for the status app
 │       ├── __init__.py
-│       └── routers.py                            # File containing the router for the status app
-├── config                                # Directory containing the configuration files non specific to the app
-│   └── nginx.conf                            # File containing the Nginx configuration
+│       └── routers.py                            # Router for the status app
+├── config                                # Directory containing the configuration files non specific to the Stargazer app
+│   └── nginx.conf                            # Nginx configuration
 ├── stargazer                             # Directory containing high-level settings for the Stargazer app
 │   ├── __init__.py
-│   └── settings.py                           # File containing the settings for the app
+│   └── settings.py                           # Settings for the Stargazer app
 ├── utilities                             # Directory containing utility scripts
 │   └── create_database.py                    # Script to create a fake database
 ├── requirements                          # Directory containing the requirements files
-│   ├── dev.txt                               # File containing the development requirements
-│   └── prod.txt                              # File containing the production requirements
-├── CHANGELOG.md                          # File containing the changelog
-├── docker-compose.yml                    # File containing the Docker Compose configuration
-├── Dockerfile                            # File containing the Dockerfile for the app
-├── LICENSE                               # File containing the MIT license
+│   ├── dev.txt                               # Development requirements
+│   └── prod.txt                              # Production requirements
+├── CHANGELOG.md                          # CHANGELOG
+├── docker-compose.yml                    # Docker Compose configuration
+├── Dockerfile                            # Dockerfile
+├── LICENSE                               # MIT license
 ├── main.py                               # Entry point of the Stargazer app
-└── README.md                             # File containing the README
+└── README.md                             # README
 ```
 
 > [!NOTE]
