@@ -28,7 +28,7 @@
 Stargazer is a REST API that leverages GitHub's _stargazers_ feature to find related repositories. A "neighbour" of a repository is defined as another repository that has been starred by at least one of the same users (stargazers).
 Stargazer offers an API endpoint that, when given a GitHub repository (owner and name), returns a JSON list of neighbour repositories, along with the stargazers they have in common. It supports OAuth2 authentication.
 
-Stargazer is developed in Python and uses the [FastAPI](https://fastapi.tiangolo.com/) framework. Underneath, it queries GitHub API.
+Stargazer is developed in Python and uses the [FastAPI](https://fastapi.tiangolo.com/) framework. Underneath, it queries [GitHub API](https://docs.github.com/en/rest).
 
 ## Table of contents
 
