@@ -8,7 +8,7 @@ Attributes:
         valid (defaults to 30).
     DATABASE_URL (str): The URL of the database used by the app.
     DOCS_ACTIVATE (bool): Whether to make the documentation available (defaults to True).
-    GITHUB_TOKEN (str): The GitHub API token.
+    GITHUB_TOKEN (str): A GitHub API access token.
     GITHUB_MAX_PAGE_REPO (int): The maximum number of pages to fetch for the requested repository
         (defaults to 1).
     GITHUB_MAX_PAGE_STARGAZER (int): The maximum number of pages to fetch for a stargazer of the
