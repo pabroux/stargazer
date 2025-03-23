@@ -29,7 +29,7 @@ def mock_get_user_by_username(
         User(
             username="pabroux",
             email="pabroux@stargazer.com",
-            hashed_password=f"{get_password_hash("password")}",
+            hashed_password=f"{get_password_hash('password')}",
             disabled=False,
         )
         if simulate_match

@@ -52,9 +52,10 @@ async def test_fetch_stargazers(mocker: MockerFixture) -> None:
     resp = mock_async_client_get(
         mocker, simulate_success=True, content=[{"login": "user"}]
     )
-    output_expected = [
-        resp_user["login"] for resp_user in resp.json()
-    ], "next" in resp.links
+    output_expected = (
+        [resp_user["login"] for resp_user in resp.json()],
+        "next" in resp.links,
+    )
     assert output_expected == await fetch_stargazers(
         client=client, user="user", repo="repo", page=1
     )
@@ -81,10 +82,13 @@ async def test_fetch_starred_repos(mocker: MockerFixture) -> None:
         simulate_success=True,
         content=[{"name": "repo", "owner": {"login": "user"}}],
     )
-    output_expected = [
-        resp_repo["owner"]["login"] + "/" + resp_repo["name"]
-        for resp_repo in resp.json()
-    ], "next" in resp.links
+    output_expected = (
+        [
+            resp_repo["owner"]["login"] + "/" + resp_repo["name"]
+            for resp_repo in resp.json()
+        ],
+        "next" in resp.links,
+    )
     assert output_expected == await fetch_starred_repos(
         client=client, stargazer="stargazer", page=1
     )

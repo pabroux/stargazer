@@ -85,7 +85,6 @@ fake_users = [
 
 # Insert fake users into the 'database/users.db' database
 with Session(engine) as session:
-
     for i, fake_user in enumerate(fake_users):
         print(f"Creating fake user {i + 1}/{len(fake_users)}...")
         password = input(f"Enter the password for '{fake_user['username']}': ")

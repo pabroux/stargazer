@@ -42,7 +42,6 @@ async def get_starneighbours(
     """
     # Use Httpx to make asynchronous requests
     async with httpx.AsyncClient() as client:
-
         # Fecth stargazers
         stargazers = []
         page = 1
