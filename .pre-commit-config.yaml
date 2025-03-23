@@ -6,16 +6,16 @@ repos:
         description: This hook checks Python files with pyupgrade.
         entry: pyupgrade --py312-plus
         language: system
-      - id: black
-        name: Black (Python formatter)
-        description: This hook checks Python files with Black.
-        entry: black -q
+      - id: ruff-format
+        name: ruff (Python formatter)
+        description: This hook checks Python files with ruff.
+        entry: ruff format
         language: system
         types_or: [python, pyi]
-      - id: isort
-        name: isort (Python import sorter)
-        description: This hook checks Python files with isort.
-        entry: isort --profile black
+      - id: ruff-check
+        name: ruff (Python linter & import sorter)
+        description: This hook checks Python files with ruff.
+        entry: ruff check --select I --fix
         language: system
         types_or: [python, pyi]
       - id: mypy
