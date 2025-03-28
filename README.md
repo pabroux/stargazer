@@ -87,13 +87,13 @@ curl -X 'POST' \
   -d 'grant_type=password&username=<username>&password=<password>'
 ```
 
-Request the list of neighbour repositories of a GitHub repository at `/repos/<owner>/<repo>/starneighbours` endpoint by passing the bearer token in the `Authorization` header:
+Request the list of neighbour repositories of a GitHub repository at `/repos/<owner>/<repo>/starneighbours` endpoint by passing the bearer token in the `authorization` header:
 
 ```shell
 curl -X 'GET' \
   'http://127.0.0.1:80/repos/<user>/<repo>/starneighbours' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer <token>'
+  -H 'authorization: bearer <token>'
 ```
 
 > [!TIP]
