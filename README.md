@@ -23,14 +23,12 @@
   </a>
 </p>
 
-
 ## About
 
 Stargazer is a REST API that leverages GitHub's _stargazers_ feature to find related repositories. A "neighbour" of a repository is defined as another repository that has been starred by at least one of the same users (stargazers).
 Stargazer offers an API endpoint that, when given a GitHub repository (owner and name), returns a JSON list of neighbour repositories, along with the stargazers they have in common. It supports OAuth2 authentication.
 
 Stargazer is developed in Python and uses the [FastAPI](https://fastapi.tiangolo.com/) framework. Underneath, it queries [GitHub API](https://docs.github.com/en/rest).
-
 
 ## Table of contents
 
@@ -40,7 +38,6 @@ Stargazer is developed in Python and uses the [FastAPI](https://fastapi.tiangolo
 - [Structure](#structure)
 - [Improvements](#improvements)
 
-
 ## Requirements
 
 To run the app, you will need:
@@ -48,7 +45,6 @@ To run the app, you will need:
 - [Python 3.12 or higher](https://www.python.org/downloads/)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-
 
 ## Usage
 
@@ -100,7 +96,6 @@ curl -X 'GET' \
   -H 'authorization: bearer <token>'
 ```
 
-
 ## Configuration
 
 You can configure the app by creating a `.env` file and setting the following environment variables:
@@ -118,7 +113,6 @@ You can configure the app by creating a `.env` file and setting the following en
 
 > [!NOTE]
 > If you run the app without Docker, create these environment variables in your terminal instead (e.g. `export JWT_ALGORITHM="HS256"`).
-
 
 ## Structure
 
@@ -175,7 +169,6 @@ The app is structured as follows:
 
 > [!NOTE]
 > The structure is much inspired by [Django](https://www.djangoproject.com)'s one.
-
 
 ## Improvements
 
