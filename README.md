@@ -45,9 +45,9 @@ Stargazer is developed in Python and uses the [FastAPI](https://fastapi.tiangolo
 
 To run the app, you will need:
 
-- [Python 3.12 or higher](https://www.python.org/downloads/);
-- [Docker](https://docs.docker.com/get-docker/);
-- [Docker Compose](https://docs.docker.com/compose/install/).
+- [Python 3.12 or higher](https://www.python.org/downloads/)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 
 ## Usage
@@ -70,7 +70,7 @@ docker compose up
 > [!NOTE]
 > This will run two containers:
 >
-> - A FastAPI container, listening on port 8000;
+> - A FastAPI container, listening on port 8000.
 > - A Nginx container, listening on port 80.
 >
 > The Nginx server is used to proxy the requests to the FastAPI container, the Stargazer app. It caches responses that was generated with the help of GitHub API.
@@ -78,7 +78,7 @@ docker compose up
 > [!TIP]
 > Don't want to use Docker?
 >
-> 1. Install dependencies: `pip install -r requirements/prod.txt`;
+> 1. Install dependencies: `pip install -r requirements/prod.txt`.
 > 2. Run the app: `uvicorn main:app --host 127.0.0.1 --port 8000`.
 >
 > In the following, use port `8000` instead of `80`.
@@ -179,12 +179,12 @@ The app is structured as follows:
 
 ## Improvements
 
-- [ ] CRUD endpoints for managing users;
-- [ ] Protected Git branch dedicated to production;
-- [ ] CI/CD pipeline;
-- [ ] RDD;
-- [ ] Real database (e.g. PostgreSQL);
-- [ ] Cached database (e.g. Redis);
-- [ ] Schema examples of each endpoint for the generated [OpenAPI](https://www.openapis.org) documentation;
-- [ ] Containers on separate machines, load balancing and auto scaling (Kubernetes);
+- [ ] CRUD endpoints for managing users.
+- [ ] Protected Git branch dedicated to production.
+- [ ] CI/CD pipeline.
+- [ ] RDD.
+- [ ] Real database (e.g. PostgreSQL).
+- [ ] Cached database (e.g. Redis).
+- [ ] Schema examples of each endpoint for the generated [OpenAPI](https://www.openapis.org) documentation.
+- [ ] Containers on separate machines, load balancing and auto scaling (Kubernetes).
 - [ ] Better database handling when not existing (currently, SQLModel with SQLite raises an error if the database does not exist, but still creates an empty database file). SQLAlchemy-Utils offers a solution but that package has some known vulnerabilities.
