@@ -1,16 +1,8 @@
 # 💫 Stargazer
 
 <p align="left">
-  <a href="https://github.com/pabroux/stargazer/blob/master/LICENSE">
-    <picture>
-      <img src="https://img.shields.io/badge/License-MIT-green" alt="License Badge">
-    </picture>
-  </a>
-  <a href="https://github.com/pabroux/stargazer/actions/workflows/ci.yml">
-    <picture>
-      <img src="https://github.com/pabroux/stargazer/actions/workflows/ci.yml/badge.svg" alt="CI Badge">
-    </picture>
-  </a>
+  <a href="https://github.com/pabroux/stargazer/blob/master/LICENSE"><img src="https://img.shields.io/github/license/pabroux/stargazer.svg?label=License" alt="License Badge"></a>
+  <a href="https://github.com/pabroux/stargazer/actions/workflows/ci.yml"><img src="https://github.com/pabroux/stargazer/actions/workflows/ci.yml/badge.svg" alt="CI Badge"></a>
 </p>
 
 Stargazer is a REST API that leverages GitHub's _stargazers_ feature to find related repositories. A "neighbour" of a repository is defined as another repository that has been starred by at least one of the same users (stargazers).
