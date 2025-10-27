@@ -104,9 +104,7 @@ The app is structured as follows:
 ├── .github                               # Directory containing GitHub Actions workflows
 │   └── workflows
 │       ├── auto-assigner.yml                 # Issue auto-assigner
-│       ├── ci-tester.yml                     # CI tester
-│       ├── code-quality-checker.yml          # Code quality checker
-│       └── code-security-checker.yml         # Code security checker
+│       └── ci.yml                            # CI
 ├── apps                                  # Directory containing the apps used by the Stargazer app
 │   ├── __init__.py
 │   ├── auth                                  # Directory containing the auth app
