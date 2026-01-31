@@ -21,7 +21,7 @@ jobs:
         uses: DeterminateSystems/determinate-nix-action@v3.15.2
       - name: Cache Python dependencies
         id: cache-python
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/dev.txt') }}
@@ -54,7 +54,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Cache Python dependencies
         id: cache-python
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/dev.txt') }}
