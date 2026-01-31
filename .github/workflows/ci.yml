@@ -6,6 +6,8 @@ on:
     branches: ["master"]
 permissions:
   contents: read
+env:
+  NIXPKGS: github:NixOS/nixpkgs/nixos-25.11
 jobs:
   QA:
     runs-on: ubuntu-latest
@@ -13,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: DeterminateSystems/determinate-nix-action@v3.15.2
       - name: Cache Python dependencies
         id: cache-python
         uses: actions/cache@v4
@@ -41,7 +43,7 @@ jobs:
       - name: Check security of Python files (Bandit)
         run: bandit -r -x ./apps/auth/tests,./apps/github/tests,./apps/shared/tests,./apps/status/tests --skip B106 .
       - name: Scan secrets
-        run: nix shell nixpkgs#gitleaks --command gitleaks git --no-banner --verbose
+        run: nix shell ${{ env.NIXPKGS }}#gitleaks --command gitleaks git --no-banner --verbose
   test:
     runs-on: ubuntu-latest
     steps:
