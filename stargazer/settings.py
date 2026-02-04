@@ -1,5 +1,4 @@
-"""
-Settings for the app.
+"""Settings for the app.
 
 This module contains settings used by the app.
 
