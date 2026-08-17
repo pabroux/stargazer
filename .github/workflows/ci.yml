@@ -17,19 +17,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
-      - name: Install Nix
+      - name: Set up Nix
         uses: DeterminateSystems/determinate-nix-action@v3.21.9
-      - name: Cache Python dependencies
+      - name: Set up Python cache
         id: cache-python
         uses: actions/cache@v6
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/dev.txt') }}
-      - name: Install Python
+      - name: Set up Python
         uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - name: Install Python dependencies
+      - name: Set up Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements/dev.txt
@@ -52,19 +52,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
-      - name: Cache Python dependencies
+      - name: Set up Python cache
         id: cache-python
         uses: actions/cache@v6
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements/dev.txt') }}
-      - name: Install Python
+      - name: Set up Python
         uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - name: Install Python dependencies
+      - name: Set up Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements/dev.txt
-      - name: Test (pytest)
+      - name: Run tests (pytest)
         run: pytest
